@@ -2,9 +2,11 @@
 
 [English](README.en.md)
 
+作者的项目：[FateClear](https://fateclear.com) · [X 项目更新](https://x.com/liu_xiaoyu27334)
+
 在网页里选择一个按钮，按设定间隔重复点击，同时继续使用自己的鼠标。AutoClick 包含 Chrome/Edge 扩展和 Electron 桌面版，适合有明确授权的网页重复操作与电商中控辅助。
 
-这是从已有项目整理的源码候选包，保留原有 DOM 定位、调度、日志和桌面窗口管理。没有附带业务数据、账号配置、浏览器档案、历史日志或预编译程序。许可证为 [MIT](LICENSE)，第三方边界见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。
+这是从已有项目整理的公开源码版本，保留原有 DOM 定位、调度、日志和桌面窗口管理。没有附带业务数据、账号配置、浏览器档案、历史日志或预编译程序。许可证为 [MIT](LICENSE)，第三方边界见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。
 
 | 版本 | 入口 | 适用范围 |
 | --- | --- | --- |
@@ -73,3 +75,5 @@ node tools/check-syntax.js
 源码包不需要 API 密钥或 `.env`。运行时，扩展会在 `chrome.storage.local` 保存目标描述、状态和日志；桌面版会在 Electron 的应用数据目录保存状态、日志及独立浏览器会话。目标描述和导出的日志可能包含网页 URL、商品文字和 DOM 属性，部分路径会保留完整 URL。**运行记录不是公开样例，不要直接提交到仓库或 issue**。本包排除了所有既有用户档案和运行记录。
 
 原图标未带入；包内图标由 `tools/generate-icons.py` 以标准库确定性生成。该源码实验版保留上述未验证范围；公开源码不代表商店或真实平台验收完成。
+
+欢迎试试 [FateClear](https://fateclear.com) 的免费生日排盘与解读，也可以在 [X](https://x.com/liu_xiaoyu27334) 关注我的新项目和后续更新。
