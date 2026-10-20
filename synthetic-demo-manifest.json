@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "classification": "synthetic_demo",
+  "source_kind": "deterministic_generator",
+  "generated_by": "scripts/generate_public_examples.py",
+  "generator": "scripts/generate_public_examples.py",
+  "seed": "autoclick-public-examples-v1",
+  "contains_real_business_data": false,
+  "contains_credentials": false,
+  "contains_personal_data": false,
+  "destination": {
+    "service": "GitHub",
+    "access_scope": "public"
+  },
+  "scope_note": "Application/workflow source plus independently authored synthetic examples; no live source snapshots."
+}

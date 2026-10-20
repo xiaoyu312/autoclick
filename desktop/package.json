@@ -1,0 +1,47 @@
+{
+  "name": "auto-click-desktop",
+  "version": "0.1.0",
+  "description": "Local Electron control panel and embedded DOM auto-click browser",
+  "main": "src/main.js",
+  "private": true,
+  "author": "xiaoyu312",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "test": "node --test test/*.test.js",
+    "check": "node ../tools/check-syntax.js",
+    "smoke": "node test/electron-smoke.js",
+    "dist:win": "electron-builder --win portable --x64 --publish never"
+  },
+  "devDependencies": {
+    "electron": "43.0.0",
+    "electron-builder": "26.15.6"
+  },
+  "build": {
+    "appId": "com.autoclick.desktop",
+    "productName": "AutoClick Desktop",
+    "asar": true,
+    "compression": "normal",
+    "files": [
+      "src/**/*",
+      "package.json",
+      "LICENSE",
+      "THIRD_PARTY_NOTICES.md"
+    ],
+    "win": {
+      "signAndEditExecutable": false,
+      "target": [
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "artifactName": "AutoClick-Desktop-${version}-win-${arch}.${ext}"
+    },
+    "portable": {
+      "requestExecutionLevel": "user"
+    }
+  }
+}

@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>AutoClick Smoke Fixture</title>
+<div class="product-row">
+  <span class="product-name">Smoke Product</span>
+  <button class="ovui-button ovui-button-icon state-off" data-smoke-target="true" type="button" data-okee-fill="true" data-e2e="button">讲解<svg aria-hidden="true" class="icon-off"><path></path></svg></button>
+</div>
+<button id="smoke-open-blank" type="button">OPEN NEVER-NAVIGATING BLANK</button>
+<a id="smoke-open-direct" href="/direct-child" target="_blank">OPEN DIRECT HTTP CHILD</a>
+<button id="smoke-open-child" type="button">OPEN ABOUT-BLANK CHILD</button>
+<a id="smoke-open-danger" href="file:///tmp/autoclick-danger" target="_blank">OPEN DANGEROUS WINDOW</a>
+<script>
+  const smokeState = (value) => String(value || '').trim();
+  const smokePath = (state, sequence) => `M${state === '取消讲解' ? '2' : '1'}${String(sequence).repeat(240)}Z`;
+  let smokeToggleSequence = 0;
+  const smokeRow = (state = '讲解', sequence = 0) => `<div class="product-row">
+    <span class="product-name">Smoke Product</span>
+    <button class="ovui-button ovui-button-icon state-${state === '取消讲解' ? 'on' : 'off'}" data-smoke-target="true" type="button" data-okee-fill="true" data-e2e="button">${state}<svg aria-hidden="true" class="icon-${state === '取消讲解' ? 'on' : 'off'}"><path d="${smokePath(state, sequence)}"></path></svg></button>
+  </div>`;
+  document.querySelector('.product-row path').setAttribute('d', smokePath('讲解', smokeToggleSequence));
+  window.__smokeClicks = 0;
+  window.__smokeToggleHistory = [];
+  window.__smokeReplacementCount = 0;
+  window.__smokeRouteChangeCount = 0;
+  window.__smokeBlankOpened = false;
+  window.__smokeBlankWindow = null;
+  window.__smokeDirectAttempted = false;
+  window.__smokeDirectWindow = null;
+  window.__smokeChildOpened = false;
+  window.__smokeDangerAttempted = false;
+  document.getElementById('smoke-open-blank').addEventListener('click', () => {
+    window.__smokeBlankWindow = window.open('', 'smoke-never-navigate');
+    window.__smokeBlankOpened = Boolean(window.__smokeBlankWindow);
+  });
+  document.getElementById('smoke-open-direct').addEventListener('click', (event) => {
+    event.preventDefault();
+    window.__smokeDirectAttempted = true;
+    window.__smokeDirectWindow = window.open(event.currentTarget.href, 'smoke-direct');
+  });
+  document.getElementById('smoke-open-child').addEventListener('click', () => {
+    const child = window.open('', 'smoke-child');
+    window.__smokeChildOpened = Boolean(child);
+    if (child) child.location.href = '/child';
+  });
+  document.getElementById('smoke-open-danger').addEventListener('click', () => { window.__smokeDangerAttempted = true; });
+  document.addEventListener('click', (event) => {
+    const button = event.target.closest('button[data-smoke-target]');
+    if (!button) return;
+    const beforeState = smokeState(button.textContent);
+    if (!['讲解', '取消讲解'].includes(beforeState)) return;
+    const nextState = beforeState === '讲解' ? '取消讲解' : '讲解';
+    window.__smokeClicks += 1;
+    document.body.dataset.smokeClicks = String(window.__smokeClicks);
+    if (window.__smokeClicks === 1) {
+      history.pushState({ smoke: true }, '', '/dashboard/live/interaction?smoke=route');
+      window.__smokeRouteChangeCount += 1;
+    }
+    smokeToggleSequence += 1;
+    document.querySelector('.product-row').outerHTML = smokeRow(nextState, smokeToggleSequence);
+    window.__smokeReplacementCount += 1;
+    window.__smokeToggleHistory.push({ beforeState, afterState: nextState, sequence: smokeToggleSequence });
+  });
+</script>
+</html>

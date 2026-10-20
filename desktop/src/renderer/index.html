@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:;">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AutoClick Desktop</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main class="shell">
+    <header class="masthead">
+      <div>
+        <p class="eyebrow">LOCAL AUTOMATION CONSOLE</p>
+        <h1>AutoClick <span>Desktop</span></h1>
+        <p class="lede">在内置浏览器中定位网页目标，不占用真实鼠标。</p>
+      </div>
+      <div class="runtime-badge" id="runtimeBadge" data-state="stopped">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span id="runtimeText">已停止</span>
+      </div>
+    </header>
+
+    <section class="panel target-panel" aria-labelledby="targetHeading">
+      <div class="panel-heading">
+        <div>
+          <p class="section-index">01 / TARGET BROWSER</p>
+          <h2 id="targetHeading">目标浏览器</h2>
+        </div>
+        <button class="button button-quiet" id="showTargetButton" type="button">显示窗口</button>
+      </div>
+      <form id="targetForm" class="target-form">
+        <label for="urlInput">地址</label>
+        <div class="url-row">
+          <input id="urlInput" name="url" type="url" inputmode="url" placeholder="https://example.com/live" autocomplete="off" spellcheck="false" required>
+          <button class="button button-primary" type="submit">打开</button>
+        </div>
+        <p class="hint">仅允许 HTTP / HTTPS。登录状态保存在独立的目标浏览器分区中。</p>
+      </form>
+      <div class="target-summary" id="targetSummary">
+        <div class="empty-state"><span class="empty-mark">—</span><span>尚未绑定网页目标</span></div>
+      </div>
+      <button class="button button-outline full" id="selectTargetButton" type="button" disabled>在网页中选择目标</button>
+    </section>
+
+    <section class="panel schedule-panel" aria-labelledby="scheduleHeading">
+      <div class="panel-heading">
+        <div>
+          <p class="section-index">02 / SCHEDULER</p>
+          <h2 id="scheduleHeading">自动点击</h2>
+        </div>
+        <span class="safe-note"><span class="safe-icon">⌁</span> DOM click</span>
+      </div>
+      <div class="schedule-controls">
+        <label for="intervalInput">点击间隔</label>
+        <div class="interval-control">
+          <input id="intervalInput" type="number" min="1" max="86400" step="1" value="8">
+          <span>秒</span>
+        </div>
+      </div>
+      <div class="action-row">
+        <button class="button button-start" id="startButton" type="button" disabled>开始自动点击</button>
+        <button class="button button-stop" id="stopButton" type="button" disabled>停止</button>
+      </div>
+      <p class="run-hint" id="runHint">选择网页目标后才能开始。窗口隐藏或切换其他软件不会改变调度。</p>
+    </section>
+
+    <section class="stats-grid" aria-label="运行统计">
+      <article class="stat-card stat-primary"><p>累计点击</p><strong id="clickCount">0</strong><span>本地累计计数</span></article>
+      <article class="stat-card"><p>最近一次</p><strong id="lastClickAt">—</strong><span id="lastResult">等待任务</span></article>
+      <article class="stat-card"><p>下一次</p><strong id="nextClickAt">—</strong><span>绝对时间调度</span></article>
+    </section>
+
+    <section class="panel logs-panel" aria-labelledby="logsHeading">
+      <div class="panel-heading">
+        <div>
+          <p class="section-index">03 / DIAGNOSTICS</p>
+          <h2 id="logsHeading">运行日志</h2>
+        </div>
+        <span class="log-count" id="logCount">0 条</span>
+      </div>
+      <div class="log-actions">
+        <button class="button button-quiet" id="viewLogsButton" type="button">查看日志</button>
+        <button class="button button-quiet" id="exportLogsButton" type="button">导出运行日志</button>
+      </div>
+      <div class="log-view" id="logView" hidden><p class="empty-state">暂无日志</p></div>
+    </section>
+
+    <p class="toast" id="toast" role="status" aria-live="polite"></p>
+  </main>
+  <script src="./renderer.js"></script>
+</body>
+</html>

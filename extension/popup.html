@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>自动点击助手</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <h1>自动点击助手</h1>
+
+    <!-- 当前页面信息 -->
+    <div class="section">
+      <div class="section-title">当前页面</div>
+      <div class="page-info">
+        <div id="pageUrl" class="page-url">-</div>
+        <div id="pageStatus" class="page-status">未绑定</div>
+      </div>
+    </div>
+
+    <!-- 点击目标 -->
+    <div class="section">
+      <div class="section-title">点击目标</div>
+      <div id="targetInfo" class="target-info">
+        <div class="no-target">尚未选择点击目标</div>
+      </div>
+    </div>
+
+    <!-- 选择目标按钮 -->
+    <div class="section">
+      <button id="selectTargetBtn" class="btn btn-primary">
+        在网页中选择目标
+      </button>
+      <button id="reselectTargetBtn" class="btn btn-secondary" style="display: none;">
+        重新选择目标
+      </button>
+    </div>
+
+    <!-- 点击间隔 -->
+    <div class="section">
+      <div class="section-title">点击间隔</div>
+      <div class="interval-input">
+        <input type="number" id="intervalInput" min="1" value="8" />
+        <span>秒</span>
+      </div>
+    </div>
+
+    <!-- 状态信息 -->
+    <div class="section" id="statusSection" style="display: none;">
+      <div class="section-title">状态</div>
+      <div id="statusInfo" class="status-info">
+        <div class="status-row">
+          <span class="label">状态：</span>
+          <span id="runStatus" class="value">-</span>
+        </div>
+        <div class="status-row">
+          <span class="label">累计点击：</span>
+          <span id="clickCount" class="value">0</span>
+        </div>
+        <div class="status-row">
+          <span class="label">最近一次：</span>
+          <span id="lastClickTime" class="value">-</span>
+        </div>
+        <div class="status-row">
+          <span class="label">下一次：</span>
+          <span id="nextClickTime" class="value">-</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 控制按钮 -->
+    <div class="section">
+      <button id="startBtn" class="btn btn-success" disabled>
+        开始自动点击
+      </button>
+      <button id="stopBtn" class="btn btn-danger" style="display: none;">
+        停止自动点击
+      </button>
+    </div>
+
+    <!-- 重置按钮 -->
+    <div class="section">
+      <button id="resetBtn" class="btn btn-link">
+        重置计数
+      </button>
+    </div>
+
+    <!-- 日志查看 -->
+    <div class="section">
+      <button id="viewLogsBtn" class="btn btn-secondary">
+        查看执行日志
+      </button>
+    </div>
+  </div>
+
+  <!-- 日志面板（默认隐藏） -->
+  <div id="logPanel" class="log-panel" style="display: none;">
+    <div class="log-header">
+      <h2>执行日志</h2>
+      <button id="closeLogsBtn" class="btn-close">✕</button>
+    </div>
+    <div class="log-controls">
+      <button id="refreshLogsBtn" class="btn btn-small">刷新</button>
+      <button id="clearLogsBtn" class="btn btn-small">清空</button>
+      <button id="exportErrorLogsBtn" class="btn btn-small">导出错误日志</button>
+      <select id="logLevelFilter" class="log-filter">
+        <option value="all">全部</option>
+        <option value="error">仅错误</option>
+        <option value="warn">警告+错误</option>
+        <option value="success">仅成功</option>
+      </select>
+    </div>
+    <div id="logContent" class="log-content">
+      <div class="log-empty">暂无日志</div>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

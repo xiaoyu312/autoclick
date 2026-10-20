@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AutoClick · Synthetic Demo</title>
+<style>
+  body { max-width: 760px; margin: 48px auto; padding: 0 24px; font: 18px/1.6 system-ui, sans-serif; color: #183e38; background: #f6f8f6; }
+  article { margin: 24px 0; padding: 24px; border: 1px solid #b5c8c1; border-radius: 12px; background: white; }
+  button { font: inherit; padding: 10px 18px; cursor: pointer; }
+  output { display: block; padding-top: 12px; }
+  small { color: #45645d; }
+</style>
+<h1>AutoClick 合成演示 / Synthetic demo</h1>
+<p>所有名称、编号和状态都是新建测试数据，无品牌、客户、订单、账号或外部请求。</p>
+<p>All names, identifiers and states are invented. No account or production service is used.</p>
+<article class="product-row" data-product-id="synthetic-item-a">
+  <h2 class="product-name">Demo Item A</h2>
+  <button id="count-button" type="button"><span>记录一次 / Count once</span></button>
+  <output id="count" aria-live="polite">0</output>
+</article>
+<article class="product-row" data-product-id="synthetic-item-b">
+  <h2 class="product-name">Demo Item B</h2>
+  <div id="toggle-slot"><button id="toggle-button" type="button">讲解</button></div>
+  <output id="toggle-count" aria-live="polite">DOM clicks: 0</output>
+  <small>Desktop controlled-toggle example: the button is replaced after each click. A successful scheduled round leaves it at “取消讲解”.</small>
+</article>
+<p>先在扩展或桌面工具中选择按钮，再设置至少 1 秒的间隔。停止后再切换目标。<br>Choose a button in AutoClick, set an interval of at least one second, and stop before selecting another target.</p>
+<script src="demo.js"></script>
+</html>
